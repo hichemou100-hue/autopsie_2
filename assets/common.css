@@ -1,0 +1,30 @@
+/* Styles partagés par toutes les pages */
+.skip { position: absolute; left: 8px; top: -64px; z-index: 100; padding: 10px 14px; background: #e8eef2; color: #0a0f16; border-radius: 8px; font-weight: 600; text-decoration: none; }
+.skip:focus { top: 8px; }
+
+.site-footer { max-width: 980px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #223040; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: center; font-size: 14px; color: #a7b6c5; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.site-footer a, .site-footer .linkbtn { color: #cfe3f7; text-decoration: underline; text-underline-offset: 3px; min-height: 32px; display: inline-flex; align-items: center; }
+.site-footer a:hover, .site-footer .linkbtn:hover { color: #fff; }
+.site-footer p { margin: 0; }
+.linkbtn { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+.todo { background: #ffe08a; color: #1a1300; padding: 1px 6px; border-radius: 4px; font-weight: 600; }
+
+/* Bandeau cookies */
+.cc { position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; background: #101826; color: #e8eef2; border-top: 1px solid #3a4f66; box-shadow: 0 -8px 30px rgba(0, 0, 0, .5); padding: 14px max(16px, env(safe-area-inset-right, 0px)) max(14px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; }
+.cc-inner { max-width: 980px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; }
+.cc-text { flex: 1 1 380px; min-width: 0; }
+.cc-title { margin: 0 0 2px; font-weight: 700; font-size: 15px; }
+.cc-p { margin: 0; font-size: 14px; line-height: 1.5; color: #d4dee8; }
+.cc-p a { color: #9fd0ff; text-underline-offset: 3px; }
+.cc-btns { display: flex; gap: 10px; flex: 0 0 auto; }
+.cc-btn { font: inherit; font-weight: 600; font-size: 15px; min-width: 108px; min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #7dbdff; background: #1b2a3d; color: #fff; cursor: pointer; }
+.cc-btn:hover { background: #243850; }
+.cc-btn:focus-visible, .site-footer a:focus-visible, .linkbtn:focus-visible, .cc-p a:focus-visible { outline: 3px solid #7dbdff; outline-offset: 2px; }
+body.cc-open { padding-bottom: 150px; }
+@media (max-width: 520px) {
+  .cc-btns { width: 100%; }
+  .cc-btn { flex: 1; }
+  body.cc-open { padding-bottom: 210px; }
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hichemou100-hue.github.io/autopsie-2/sitemap.xml
