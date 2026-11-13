@@ -1,0 +1,46 @@
+name: Sauvegarde automatique
+
+# Chaque dimanche à 03:00 (UTC), et à la demande (onglet Actions > Sauvegarde automatique > Run workflow) :
+#  1. crée une archive ZIP du site, conservée 90 jours (onglet Actions > l'exécution > Artifacts) ;
+#  2. crée une étiquette « sauvegarde-AAAA-MM-JJ » sur le dépôt : un point de restauration permanent.
+on:
+  schedule:
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sauvegarde:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Nom de la sauvegarde
+        run: echo "STAMP=$(date -u +%Y-%m-%d)" >> "$GITHUB_ENV"
+
+      - name: Créer l'archive ZIP
+        run: |
+          zip -r "sauvegarde-${STAMP}.zip" . -x ".git/*" "sauvegarde-*.zip"
+
+      - name: Conserver l'archive 90 jours
+        uses: actions/upload-artifact@v4
+        with:
+          name: sauvegarde-${{ env.STAMP }}
+          path: sauvegarde-${{ env.STAMP }}.zip
+          retention-days: 90
+
+      - name: Créer l'étiquette de restauration
+        run: |
+          if git rev-parse "sauvegarde-${STAMP}" >/dev/null 2>&1; then
+            echo "Étiquette déjà présente pour aujourd'hui."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag "sauvegarde-${STAMP}"
+            git push origin "sauvegarde-${STAMP}"
+          fi
